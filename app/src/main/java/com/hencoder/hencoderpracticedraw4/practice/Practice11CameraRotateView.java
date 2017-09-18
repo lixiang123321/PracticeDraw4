@@ -3,6 +3,7 @@ package com.hencoder.hencoderpracticedraw4.practice;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -30,15 +31,33 @@ public class Practice11CameraRotateView extends View {
         super(context, attrs, defStyleAttr);
     }
 
+    private final Camera camera;
+
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+        camera = new Camera();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        canvas.save();
+        camera.save();
+        camera.rotateX(30);
+        camera.applyToCanvas(canvas);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        camera.restore();
+        canvas.restore();
+
+        canvas.save();
+        camera.save();
+        camera.rotateY(30);
+        camera.applyToCanvas(canvas);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        camera.restore();
+        canvas.restore();
+
+        // remember : camera should restore too, or the previous operation still exist.
     }
 }

@@ -1,5 +1,7 @@
 package com.hencoder.hencoderpracticedraw4.practice;
 
+import com.hencoder.hencoderpracticedraw4.R;
+
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -12,8 +14,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-
-import com.hencoder.hencoderpracticedraw4.R;
 
 public class Practice14FlipboardView extends View {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -73,6 +73,19 @@ public class Practice14FlipboardView extends View {
         int y = centerY - bitmapHeight / 2;
 
         canvas.save();
+        canvas.clipRect(x, y, x + bitmapWidth, y + 0.5f * bitmapHeight);
+        canvas.drawBitmap(bitmap, x, y, paint);
+        canvas.restore();
+
+        canvas.save();
+
+        if (degree < 90) {
+            // bottom part
+            canvas.clipRect(0, centerY, getWidth(), centerY + 0.5f * bitmapHeight);
+        } else {
+            // top part
+            canvas.clipRect(0, y, getWidth(), centerY);
+        }
 
         camera.save();
         camera.rotateX(degree);

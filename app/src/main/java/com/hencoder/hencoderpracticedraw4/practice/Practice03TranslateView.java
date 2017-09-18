@@ -30,15 +30,28 @@ public class Practice03TranslateView extends View {
         super(context, attrs, defStyleAttr);
     }
 
+    private final int bitmapWidth;
+    private final int bitmapHeight;
+
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+        bitmapWidth = bitmap.getWidth();
+        bitmapHeight = bitmap.getHeight();
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        canvas.save();
+        canvas.translate(-0.3f * bitmapWidth, -.3f * bitmapHeight);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        canvas.save();
+        canvas.translate(0.5f * bitmapWidth, 0.1f * bitmapHeight);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }

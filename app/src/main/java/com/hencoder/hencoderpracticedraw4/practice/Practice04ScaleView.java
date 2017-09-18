@@ -30,15 +30,30 @@ public class Practice04ScaleView extends View {
         super(context, attrs, defStyleAttr);
     }
 
+    private final int bitmapWidth;
+    private final int bitmapHeight;
+
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+        bitmapWidth = bitmap.getWidth();
+        bitmapHeight = bitmap.getHeight();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        canvas.save();
+        // scale with no center -> dont know center where...
+        // canvas.scale(1.2f, 1.2f);
+
+        canvas.scale(1.2f, 1.2f, point1.x + bitmapWidth, point1.y + bitmapHeight);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        canvas.save();
+        canvas.scale(0.5f, 1.5f, point2.x + 0.5f * bitmapWidth, point2.y + 0.5f * bitmapHeight);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }

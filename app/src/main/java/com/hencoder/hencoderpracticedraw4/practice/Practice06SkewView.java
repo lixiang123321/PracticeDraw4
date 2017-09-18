@@ -30,15 +30,30 @@ public class Practice06SkewView extends View {
         super(context, attrs, defStyleAttr);
     }
 
+    private final int bitmapWidth;
+    private final int bitmapHeight;
+
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+        bitmapWidth = bitmap.getWidth();
+        bitmapHeight = bitmap.getHeight();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        canvas.save();
+//        canvas.skew(1, 0);// right bottom x direction.
+//        canvas.skew(-1, 0);// left bottom x direction.
+
+        canvas.skew(0, 0.5f);// right bottom y direction.
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        canvas.save();
+        canvas.skew(-0.5f, 0);// left bottom x direction.
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }
